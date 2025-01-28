@@ -14,10 +14,31 @@ import (
 func GenerateCommitMessage(diff string) (string, error) {
 	url := "https://api.openai.com/v1/chat/completions"
 
+	// Explain to openai comment template
+	systemMessage := `You are an AI assistant generating detailed Git commit messages. The messages should include:
+	1. A short summary of the change (title).
+	2. A longer, detailed explanation of what the change does (description).
+	3. The context or reason for the change, if applicable.
+	
+	The commit message should follow this format:
+	<type>: <short summary>
+	
+	<detailed description>
+	
+	Commit types:
+	- feat: (new feature)
+	- fix: (bug fix)
+	- refactor: (refactoring production code)
+	- style: (formatting, missing semi colons, etc; no code change)
+	- docs: (changes to documentation)
+	- test: (adding or refactoring tests; no production code change)
+	- chore: (updating grunt tasks etc; no production code change)
+	- wip: (work in progress; do not push!)`
+
 	payload := map[string]interface{}{
 		"model": "gpt-4",
 		"messages": []map[string]string{
-			{"role": "system", "content": "Generate a commit message based on the following git diff."},
+			{"role": "system", "content": systemMessage},
 			{"role": "user", "content": diff},
 		},
 	}
