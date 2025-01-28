@@ -47,7 +47,7 @@ func main() {
 		// Run commit process
 		err := git.RunGitCommit(commitMessage)
 		if err != nil {
-			fmt.Println("Failed to commit: %v\n", err)
+			fmt.Printf("Failed to commit: %v\n", err)
 			os.Exit(1)
 		}
 		fmt.Println("Changes committed successfully!")
