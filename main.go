@@ -1,0 +1,5 @@
+package aicommit
+
+func main() {
+
+}
