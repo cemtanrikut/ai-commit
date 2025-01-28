@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	client := &api.RealOpenAIClient{}
+
 	// Get git diff result
 	diff, err := git.GetDiff()
 	if err != nil {
@@ -27,7 +29,7 @@ func main() {
 	fmt.Println(diff)
 
 	// Send diff to OpenAI API and generate commit message
-	commitMessage, err := api.GenerateCommitMessage(diff)
+	commitMessage, err := client.GenerateCommitMessage(diff)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
